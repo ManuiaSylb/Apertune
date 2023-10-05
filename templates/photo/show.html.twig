@@ -1,20 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PhotoController!{% endblock %}
+{# ... #}
+  {% block body %}
+      <h1>{{ photo.Titre }}</h1>
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+      {% dump photo %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+      <table class="table">
+          <tbody>
+          <tr>
+              <th>Description</th>
+              <td>{{ photo.Description }}</td>
+          </tr>
+          <tr>
+              <th>ShutterSpeed</th>
+              <td>{{ photo.ShutterSpeed }}</td>
+          </tr>
+          <tr>
+              <th>Ouverture</th>
+              <td>{{ photo.Ouverture }}</td>
+          </tr>
+          <tr>
+              <th>ISO</th>
+              <td>{{ photo.ISO }}</td>
+          </tr>
+          </tbody>
+      </table>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/manuiax/CSC4101/Apertune/Apertune/src/Controller/PhotoController.php'|file_link(0) }}">src/Controller/PhotoController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/manuiax/CSC4101/Apertune/Apertune/templates/photo/index.html.twig'|file_link(0) }}">templates/photo/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+      <a href="{{ path('galleries_show',{'id':photo.id}) }}">Retour ver la gallerie de {{ photo.Auteur }}</a>
+
+  {% endblock %} {# body #}
+{# ... #}
+
+

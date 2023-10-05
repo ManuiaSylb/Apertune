@@ -10,27 +10,17 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class PhotoController extends AbstractController
 {
-
     /**
      * Show a Photo
      *
      * @param Integer $id (note that the id must be an integer)
      */
     #[Route('/Photo/{id}', name: 'Photo_show', requirements: ['id' => '\d+'])]
-    public function show(ManagerRegistry $doctrine, $id)
+    public function show(Photo $photo)
     {
-        $PhotoRepo = $doctrine->getRepository(Photo::class);
-        $Photo = $PhotoRepo->find($id);
-
-        if (!$Photo) {
-            throw $this->createNotFoundException("Aucune photo n'existe");
-        }
-
-        $res = '...';
-        //...
-
-        $res .= '<p/><a href="' . $this->generateUrl('Photo_show') . '">Back</a>';
-
-        return new Response('<html><body>'. $res . '</body></html>');
+        return $this->render('photo/show.html.twig', [
+            'photo' => $photo  ,
+        ]);
     }
 }
+

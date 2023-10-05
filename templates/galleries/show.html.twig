@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{# ... #}
+  {% block body %}
+      <h1>Gallerie de {{ photo.Auteur }}</h1>
+
+      {% dump photo %}
+
+      <table class="table">
+          <tbody>
+          <tr>
+              <th>Id</th>
+              <td>{{ photo.id }}</td>
+          </tr>
+          <tr>
+              <th>Titre</th>
+              <td><a href="{{ path('Photo_show',{'id':photo.id}) }}">{{ photo.Titre }}</a></td>
+          </tr>
+          <tr>
+              <th>Description</th>
+              <td>{{ photo.Description }}</td>
+          </tr>
+          </tbody>
+      </table>
+
+      <a href="{{ path('app_galleries')}}">Retour vers les galleries</a>
+
+  {% endblock %} {# body #}
+{# ... #}
+
+

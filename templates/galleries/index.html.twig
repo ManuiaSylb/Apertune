@@ -7,7 +7,7 @@
 
     <ul>
         {% for gallerie in galleries %}
-            <li>{{ gallerie.Nom }}</li>
+            <li><a href="{{ path('galleries_show',{'id':gallerie.id}) }}">Gallerie de {{ gallerie.Auteur }}</a> </li>
         {% endfor %} {# galleries #}
     </ul>
 

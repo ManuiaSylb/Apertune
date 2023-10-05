@@ -24,8 +24,8 @@ class AppFixtures extends Fixture
 
     private static function PhotoDataGenerator()
     {
-        yield ["Margaux", "Manuia",self::Gallerie1];
-        yield ["Miroir", "Esteban",self::Gallerie2];
+        yield ["Margaux", "Manuia","Portrait devant un coucher de soleil", "1/320", "1.8", 100, self::Gallerie1];
+        yield ["Miroir", "Esteban","Photo reflexion","1/540","3.2",100,self::Gallerie2];
     }
 
 
@@ -43,13 +43,19 @@ class AppFixtures extends Fixture
             $this->addReference($Nom,$Gallerie);
         }
 
-        foreach (self::PhotoDataGenerator() as [$Titre, $auteur, $gallerie])
+        foreach (self::PhotoDataGenerator() as [$Titre, $auteur, $description, $ss, $ouverture, $iso, $gallerie])
         {
+            $gal = $this->getReference($gallerie);
             $photo= new Photo();
             $photo ->setTitre($Titre);
             $photo ->setAuteur($auteur);
+            $photo->setDescription($description);
+            $photo->setShutterSpeed($ss);
+            $photo->setOuverture($ouverture);
+            $photo->setISO($iso);
             $manager->persist($photo);
             $manager->flush();
+            $gal->addPhoto($photo);
 
             $this->addReference($Titre,$photo);
         }
