@@ -1,1 +1,20 @@
-Gestionnaire d'avancement du projet Apertune
+Gestionnaire d'avancement du projet Apertune (MAJ 05/10/23)
+
+
+Tâches effectuées:
+
+-Implémentation des controlleurs Galleries et Photo
+-Routage des sous-pages de galleries
+-Lien hypertextes afin de se balader plus facilement dans l'application
+-Controlleur admin mis à jour
+-Récupération de toutes les données nécessaire à partir du AppFixtures
+
+
+
+
+Tâches à réaliser pour un futur proche :
+
+-Ajout d'image (via ImageField)
+-Elaboration de codes CSS pour mettre en forme les pages HTML
+-Systeme de login/register
+-Créer des interactions entre membre
