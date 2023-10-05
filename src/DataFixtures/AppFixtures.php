@@ -31,7 +31,6 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $inventoryRepo = $manager->getRepository(Gallerie::class);
 
         foreach (self::GallerieDataGenerator() as [$Nom,$Auteur])
         {

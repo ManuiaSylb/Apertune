@@ -1,20 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GalleriesController!{% endblock %}
+{% block title %}Galleries!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Liste des gallerie</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{{ '/home/manuia/PhpstormProjects/Apertune/src/Controller/GalleriesController.php'|file_link(0) }}">src/Controller/GalleriesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/manuia/PhpstormProjects/Apertune/templates/galleries/index.html.twig'|file_link(0) }}">templates/galleries/index.html.twig</a></code></li>
+        {% for gallerie in galleries %}
+            <li>{{ gallerie.Nom }}</li>
+        {% endfor %} {# galleries #}
     </ul>
-</div>
-{% endblock %}
+
+{% endblock %} {# body #}
+
+
