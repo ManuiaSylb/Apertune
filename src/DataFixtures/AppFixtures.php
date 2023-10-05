@@ -11,40 +11,51 @@ use App\Repository\PhotoRepository;
 
 class AppFixtures extends Fixture
 {
+    private const Gallerie1 = 'Gallerie de manuia';
+    private const Gallerie2 = "Gallerie d'esteban";
 
-    /**
-     * Generates initialization data for photos : [title, date, author]
-     * @return \\Generator
-     */
-    private static function PhotoDatagenerator(): \Generator
+
+    private static function GallerieDataGenerator()
     {
-        yield ["Coucher de soleil", "", "Manuia"];
-        yield ["Miroir", "", "Eric"];
-        yield ["Night Sky", "", "Esteban"];
-        yield ["Margaux", "", "Manuia"];
-        yield ["Paradoxal", "", "Eric"];
-        yield ["Monster", "", "Manuia"];
+        yield [self::Gallerie1,"Manuia"];
+        yield [self::Gallerie2,"Esteban"];
     }
 
 
-    /**
-     * Generates initialization data for galleries : [Title, author]
-     * @return \\Generator
-     */
-    private static function GallerieDatagenerator(): \Generator
+    private static function PhotoDataGenerator()
     {
-        yield ["Gallerie Manuia", "Manuia"];
-        yield ["Gallerie Manuia", "Eric"];
-        yield ["Gallerie Manuia", "Esteban"];
+        yield ["Margaux", "Manuia",self::Gallerie1];
+        yield ["Miroir", "Esteban",self::Gallerie2];
     }
-
 
 
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $inventoryRepo = $manager->getRepository(Gallerie::class);
+
+        foreach (self::GallerieDataGenerator() as [$Nom,$Auteur])
+        {
+            $Gallerie= new Gallerie();
+            $Gallerie ->setNom($Nom);
+            $Gallerie ->setAuteur($Auteur);
+            $manager->persist($Gallerie);
+            $manager->flush();
+
+            $this->addReference($Nom,$Gallerie);
+        }
+
+        foreach (self::PhotoDataGenerator() as [$Titre, $auteur, $gallerie])
+        {
+            $photo= new Photo();
+            $photo ->setTitre($Titre);
+            $photo ->setAuteur($auteur);
+            $manager->persist($photo);
+            $manager->flush();
+
+            $this->addReference($Titre,$photo);
+        }
 
         $manager->flush();
+
     }
 }

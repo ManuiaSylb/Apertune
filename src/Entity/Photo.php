@@ -17,11 +17,15 @@ class Photo
     #[ORM\Column(length: 255)]
     private ?string $Titre = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $Date = null;
-
     #[ORM\Column(length: 255)]
     private ?string $Auteur = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Photo')]
+    private ?Gallerie $gallerie = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Description = null;
+
 
     public function getId(): ?int
     {
@@ -40,18 +44,6 @@ class Photo
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->Date;
-    }
-
-    public function setDate(\DateTimeInterface $Date): static
-    {
-        $this->Date = $Date;
-
-        return $this;
-    }
-
     public function getAuteur(): ?string
     {
         return $this->Auteur;
@@ -63,4 +55,30 @@ class Photo
 
         return $this;
     }
+
+    public function getGallerie(): ?Gallerie
+    {
+        return $this->gallerie;
+    }
+
+    public function setGallerie(?Gallerie $gallerie): static
+    {
+        $this->gallerie = $gallerie;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(?string $Description): static
+    {
+        $this->Description = $Description;
+
+        return $this;
+    }
+
+
 }
