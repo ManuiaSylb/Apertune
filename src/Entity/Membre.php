@@ -17,10 +17,13 @@ class Membre
     private ?string $Pseudo = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Description = null;
+    private ?string $Pays = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Gallerie $Gallerie = null;
+
+    #[ORM\Column]
+    private ?int $Annee = null;
 
     public function getId(): ?int
     {
@@ -39,14 +42,14 @@ class Membre
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getPays(): ?string
     {
-        return $this->Description;
+        return $this->Pays;
     }
 
-    public function setDescription(?string $Description): static
+    public function setPays(?string $Pays): static
     {
-        $this->Description = $Description;
+        $this->Pays = $Pays;
 
         return $this;
     }
@@ -59,6 +62,18 @@ class Membre
     public function setGallerie(?Gallerie $Gallerie): static
     {
         $this->Gallerie = $Gallerie;
+
+        return $this;
+    }
+
+    public function getAnnee(): ?int
+    {
+        return $this->Annee;
+    }
+
+    public function setAnnee(int $Annee): static
+    {
+        $this->Annee = $Annee;
 
         return $this;
     }

@@ -8,6 +8,7 @@ use App\Entity\Gallerie;
 use App\Entity\Membre;
 use App\Entity\Photo;
 use App\Repository\PhotoRepository;
+use phpDocumentor\Reflection\Types\Self_;
 
 class AppFixtures extends Fixture
 {
@@ -21,6 +22,11 @@ class AppFixtures extends Fixture
         yield [self::Gallerie2,"Esteban"];
     }
 
+    private static function MembreGenerator()
+    {
+        yield ["Manuia",2022,"Tahiti"];
+        yield ["Esteban",2023,"France"];
+    }
 
     private static function PhotoDataGenerator()
     {
@@ -35,26 +41,35 @@ class AppFixtures extends Fixture
         foreach (self::GallerieDataGenerator() as [$Nom,$Auteur])
         {
             $Gallerie= new Gallerie();
-            $Gallerie ->setNom($Nom);
-            $Gallerie ->setAuteur($Auteur);
+            $Gallerie->setNom($Nom);
+            $Gallerie->setAuteur($Auteur);
             $manager->persist($Gallerie);
-            $manager->flush();
 
             $this->addReference($Nom,$Gallerie);
+        }
+
+        foreach (self::MembreGenerator() as [$pseudo, $annee, $pays])
+        {
+            $membre = new Membre();
+            $membre->setPseudo($pseudo);
+            $membre->setAnnee($annee);
+            $membre->setPays($pays);
+            $manager->persist($membre);
+
+            $this->addReference($pseudo,$membre);
         }
 
         foreach (self::PhotoDataGenerator() as [$Titre, $auteur, $description, $ss, $ouverture, $iso, $gallerie])
         {
             $gal = $this->getReference($gallerie);
             $photo= new Photo();
-            $photo ->setTitre($Titre);
-            $photo ->setAuteur($auteur);
+            $photo->setTitre($Titre);
+            $photo->setAuteur($auteur);
             $photo->setDescription($description);
             $photo->setShutterSpeed($ss);
             $photo->setOuverture($ouverture);
             $photo->setISO($iso);
             $manager->persist($photo);
-            $manager->flush();
             $gal->addPhoto($photo);
 
             $this->addReference($Titre,$photo);
