@@ -35,6 +35,13 @@ class Photo
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ShutterSpeed = null;
 
+    public function __toString()
+    {
+        $s = '';
+        $s .= $this->getId() .' '. $this->getTitre() .' ';
+        return $s;
+    }
+
 
     public function getId(): ?int
     {
