@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Album;
+use App\Entity\Photo;
 use Doctrine\DBAL\Query\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -12,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 class AlbumCrudController extends AbstractCrudController
@@ -43,21 +45,14 @@ class AlbumCrudController extends AbstractCrudController
             TextField::new('Description'),
 
             AssociationField::new('Objets')
-                ->onlyOnForms()
-                ->hideWhenCreating()
                 ->setTemplatePath('admin/fields/Gallerie_Photo.html.twig')
-                ->setQueryBuilder(
-                    function (QueryBuilder $queryBuilder) {
-                        $currentAlbum = $this->getContext()->getEntity()->getInstance();
-                        $Membre = $currentAlbum->getMembre();
-                        $memberId = $Membre->getId();
-                        $queryBuilder->leftJoin('entity.Gallerie', 'i')
-                            ->leftJoin('i.owner', 'm')
-                            ->andWhere('m.id = :member_id')
-                            ->setParameter('member_id', $memberId);
-                        return $queryBuilder;
-                    }
-                ),
+
         ];
+    }
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Photo::class,
+        ]);
     }
 }

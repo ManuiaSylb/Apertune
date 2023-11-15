@@ -13,7 +13,8 @@ class PhotoType extends AbstractType
     {
         $builder
             ->add('Titre')
-            ->add('Auteur')
+            ->add('Auteur', null, [
+                'disabled'   => true,])
             ->add('Description')
             ->add('ISO')
             ->add('Ouverture')
@@ -22,7 +23,8 @@ class PhotoType extends AbstractType
             'multiple' => true,
             'expanded' => true
         ])
-            ->add('gallerie')
+            ->add('gallerie', null, [
+                'disabled'   => true,])
 
         ;
     }

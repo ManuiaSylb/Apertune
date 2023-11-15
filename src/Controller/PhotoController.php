@@ -31,9 +31,15 @@ class PhotoController extends AbstractController
     }
 
     #[Route('/new', name: 'app_photo_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $photo = new Photo();
+        $photo->setAuteur($this->getUser()->getMembre());
+        if ($this->getUser()->getMembre()->getGallerie()==null){
+            return $this->redirectToRoute('app_galleries_new', [], Response::HTTP_SEE_OTHER);
+        }
+        $photo->setGallerie($this->getUser()->getMembre()->getGallerie());
         $form = $this->createForm(PhotoType::class, $photo);
         $form->handleRequest($request);
 

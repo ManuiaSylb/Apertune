@@ -27,14 +27,15 @@ class PhotoCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('Titre'),
-            //DateField::new('')
             AssociationField::new('Auteur'),
             TextEditorField::new('description'),
             IntegerField::new('ISO'),
             TextField::new("Ouverture"),
             TextField::new("ShutterSpeed"),
-            AssociationField::new("Albums"),
+            AssociationField::new("Albums")
+                ->setTemplatePath('admin/fields/Album_Photo.html.twig'),
             AssociationField::new('gallerie')
         ];
     }
+
 }

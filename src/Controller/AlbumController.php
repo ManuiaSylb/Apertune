@@ -75,6 +75,7 @@ class AlbumController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function edit(Request $request, Album $album, EntityManagerInterface $entityManager): Response
     {
+
         $form = $this->createForm(Album1Type::class, $album);
         $form->handleRequest($request);
 

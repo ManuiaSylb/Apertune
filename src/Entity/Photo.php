@@ -50,7 +50,7 @@ class Photo
     public function __toString()
     {
         $s = '';
-        $s .= $this->getId() .' '. $this->getTitre() .' ';
+        $s .= $this->getTitre() .' ';
         return $s;
     }
 

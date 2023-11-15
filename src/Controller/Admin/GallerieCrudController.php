@@ -36,7 +36,6 @@ class GallerieCrudController extends AbstractCrudController
             TextField::new('Nom'),
             TextField::new('Auteur'),
             AssociationField::new('Photo')
-                ->onlyOnDetail()
                 ->setTemplatePath('admin/fields/Gallerie_Photo.html.twig')
         ];
     }

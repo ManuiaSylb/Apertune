@@ -2,6 +2,9 @@ bootstrap_menu:
   menus:
     main:
       items:
+        poster:
+          label: 'Poster une photo'
+          route: 'app_photo_new'
         Galeries:
           label: 'Galeries'
           route: 'app_galleries'
@@ -25,6 +28,3 @@ bootstrap_menu:
           label: 'Se déconnecter'
           route: 'app_logout'
           roles: [ 'ROLE_USER' ]
-        #selfaccount:
-          #label: 'Mon profil'
-          #route: 'Profil'

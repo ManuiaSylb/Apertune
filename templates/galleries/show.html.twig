@@ -11,6 +11,7 @@
           <tr>
               <!-- <th>Id</th> -->
               <th>Titre de la Photo</th>
+              <th>Albums</th>
               <th>Actions</th>
           </tr>
           </thead>
@@ -19,6 +20,13 @@
               <tr>
                   <!-- <td>{{ photo.id }}</td> -->
                   <td>{{ photo.Titre }}</td>
+                  <td>
+                      {% for album in photo.albums %}
+                          <li>
+                          <a href="{{ path('app_album_show', {'id': album.id}) }}">{{ album.Nom }}</a>
+                          </li>
+                      {% endfor %}
+                  </td>
                   <td>
                       <a href="{{ path('Photo_show', {'id': photo.id}) }}">Montrer la photo</a>
                   </td>
@@ -30,8 +38,10 @@
           {% endfor %}
           </tbody>
       </table>
+      {% if app.user %}
       {% if app.user.Pseudo == galerie.Auteur or is_granted('ROLE_ADMIN')%}
         <a href="{{ path('app_photo_new')}}">Ajouter une photo</a>
+      {% endif %}
       {% endif %}
       <a href="{{ path('app_galleries')}}">Retour vers les galeries</a>
 

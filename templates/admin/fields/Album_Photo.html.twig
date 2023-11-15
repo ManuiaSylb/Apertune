@@ -1,19 +1,19 @@
 {# source: https://stackoverflow.com/a/65082524/1814910 #}
 <ul>
-    {% for Photo in field.value %}
+    {% for Album in field.value %}
     {%- set url = ea_url()
-        .setController('App\\Controller\\Admin\\PhotoCrudController')
+        .setController('App\\Controller\\Admin\\AlbumCrudController')
         .setAction('detail')
-        .setEntityId(Photo.id)
+        .setEntityId(Album.id)
     -%}
     <ul>
         <a href="{{ url }}">
-            {{ Photo }}
+            {{ Album }}
         </a>
     </ul>
     {% else %}
 </ul>
-<span class="badge badge-secondary">Aucune</span>
+<span class="badge badge-secondary">Aucun</span>
 <ul>
     {% endfor %}
 </ul>
