@@ -31,9 +31,9 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
 
     private static function AlbumDataGenerator()
     {
-        yield [self::Album1,"Manuia",True];
-        yield [self::Album2,"Manuia",False];
-        yield [self::Album3,"Esteban",True];
+        yield [self::Album1,"Manuia",True,"Photos de portraits"];
+        yield [self::Album2,"Manuia",False,"Photos cinématiques"];
+        yield [self::Album3,"Esteban",True,"Photos d'art"];
     }
 
 
@@ -68,8 +68,8 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     private static function PhotoDataGenerator()
     {
         yield ["Margaux", "Manuia","Portrait devant un coucher de soleil", "1/320", "1.8", 100, self::Gallerie1, [self::Album1]];
-        yield ["Miroir", "Manuia","Photo reflexion","1/540","3.2",100,self::Gallerie1, [self::Album2,self::Album1]];
-        yield ["Nature", "Esteban","Photo reflexion","1/540","3.2",100,self::Gallerie2, [self::Album3]];
+        yield ["17h30", "Manuia","Photo d'un couché de soleil","1/540","3.2",100,self::Gallerie1, [self::Album2,self::Album1]];
+        yield ["Vénuse de Milo", "Esteban","Photo de la statue de la Vénus","1/540","3.2",100,self::Gallerie2, [self::Album3]];
     }
 
     public function getDependencies()

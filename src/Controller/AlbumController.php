@@ -20,9 +20,23 @@ class AlbumController extends AbstractController
     #[Route('/', name: 'app_album_index', methods: ['GET'])]
     public function index(AlbumRepository $albumRepository): Response
     {
-        return $this->render('album/index.html.twig', [
-            'albums' => $albumRepository->findBy(['Publie' => true]),
-        ]);
+
+            if ($this->getUser()->getroles()==['ROLE_ADMIN','ROLE_USER']) {
+                return $this->render('album/index.html.twig', [
+                    'albums' => $albumRepository->findAll()
+                ]);
+            }
+            if($this->getUser()){
+                $Membre=$this->getUser()->getMembre();
+                return $this->render('album/index.html.twig', [
+                    'albums' => $albumRepository->findBy(['Publie' => true, 'Auteur' => $Membre])
+                ]);
+            }
+            else{
+            return $this->render('album/index.html.twig', [
+                'albums' => $albumRepository->findBy(['Publie' => true])
+                ]);
+            }
     }
 
     #[Route('/new', name: 'app_album_new', methods: ['GET', 'POST'])]

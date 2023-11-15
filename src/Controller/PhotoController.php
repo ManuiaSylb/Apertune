@@ -45,6 +45,8 @@ class PhotoController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($photo);
+
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_galleries', [], Response::HTTP_SEE_OTHER);
@@ -53,6 +55,7 @@ class PhotoController extends AbstractController
         return $this->render('photo/new.html.twig', [
             'photo' => $photo,
             'form' => $form,
+
         ]);
     }
 

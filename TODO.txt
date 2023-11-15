@@ -1,5 +1,6 @@
-Gestionnaire d'avancement du projet Apertune (MAJ 05/10/23)
+Gestionnaire d'avancement du projet Apertune (MAJ 15/11/23)
 
+ETAPE ATTEINTE : 29
 
 Tâches effectuées:
 
@@ -16,8 +17,8 @@ Tâches effectuées:
 
 Tâches à réaliser pour un futur proche :
 
--Lors de la création d'une photo, l'album concerné et la photo ne se lie pas.
--La contextualisation reste à faire (ne voir que les albums partagés et les notres)
+
 -Habbilage CSS attirant
 -Intégration des images avec Vich Uploader
+-messages flash
 

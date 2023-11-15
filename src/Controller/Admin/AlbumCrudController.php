@@ -39,11 +39,8 @@ class AlbumCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('Nom'),
             AssociationField::new('Auteur'),
-            BooleanField::new('Publie')
-                ->onlyOnForms()
-                ->hideWhenCreating(),
+            BooleanField::new('Publie'),
             TextField::new('Description'),
-
             AssociationField::new('Objets')
                 ->setTemplatePath('admin/fields/Gallerie_Photo.html.twig')
 
