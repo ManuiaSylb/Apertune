@@ -8,13 +8,16 @@ Tâches effectuées:
 -Lien hypertextes afin de se balader plus facilement dans l'application
 -Controlleur admin mis à jour
 -Récupération de toutes les données nécessaire à partir du AppFixtures
-
+-Elaboration de codes CSS pour mettre en forme les pages HTML
+-Systeme de login/register
+-Gestion des contenus depuis le front-office
 
 
 
 Tâches à réaliser pour un futur proche :
 
--Ajout d'image (via ImageField)
--Elaboration de codes CSS pour mettre en forme les pages HTML
--Systeme de login/register
--Créer des interactions entre membre
+-Lors de la création d'une photo, l'album concerné et la photo ne se lie pas.
+-La contextualisation reste à faire (ne voir que les albums partagés et les notres)
+-Habbilage CSS attirant
+-Intégration des images avec Vich Uploader
+
