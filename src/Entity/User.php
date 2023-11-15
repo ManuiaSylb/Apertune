@@ -32,6 +32,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'User', cascade: ['persist', 'remove'])]
     private ?Membre $membre = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $pseudo = null;
+
+    #[ORM\Column]
+    private ?int $Annee = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Pays = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -115,6 +124,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->membre = $membre;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): static
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getAnnee(): ?int
+    {
+        return $this->Annee;
+    }
+
+    public function setAnnee(int $Annee): static
+    {
+        $this->Annee = $Annee;
+
+        return $this;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->Pays;
+    }
+
+    public function setPays(string $Pays): static
+    {
+        $this->Pays = $Pays;
 
         return $this;
     }

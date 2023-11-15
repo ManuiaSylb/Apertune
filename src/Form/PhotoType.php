@@ -2,26 +2,35 @@
 
 namespace App\Form;
 
-use App\Entity\Gallerie;
+use App\Entity\Photo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GallerieType extends AbstractType
+class PhotoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom')
-            ->add('Auteur', null, [
-                'disabled'   => true,])
+            ->add('Titre')
+            ->add('Auteur')
+            ->add('Description')
+            ->add('ISO')
+            ->add('Ouverture')
+            ->add('ShutterSpeed')
+            ->add('Albums', null, [
+            'multiple' => true,
+            'expanded' => true
+        ])
+            ->add('gallerie')
+
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Gallerie::class,
+            'data_class' => Photo::class,
         ]);
     }
 }

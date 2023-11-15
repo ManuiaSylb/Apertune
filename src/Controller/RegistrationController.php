@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Membre;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,6 +29,12 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $membre= new Membre();
+            $user->setMembre($membre);
+            $user->setRoles(['ROLE_USER']);
+            $membre->setPseudo($user->getPseudo());
+            $membre->setPays($user->getPays());
+            $membre->setAnnee($user->getAnnee());
 
             $entityManager->persist($user);
             $entityManager->flush();

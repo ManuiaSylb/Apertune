@@ -29,8 +29,12 @@
     </ul>
 
     <a href="{{ path('app_album_index') }}">Retour aux albums</a>
-    {% if is_granted('ROLE_USER') %}
+    {% if app.user %}
+    {% if app.user.Pseudo == album.Auteur or is_granted('ROLE_ADMIN') %}
         <a href="{{ path('app_album_edit', {'id': album.id}) }}">Modifier</a>
+        {{ include('album/_delete_form.html.twig') }}
     {%  endif %}
-    {{ include('album/_delete_form.html.twig') }}
+    {%  endif %}
+
+
 {% endblock %}

@@ -30,7 +30,9 @@
           {% endfor %}
           </tbody>
       </table>
-
+      {% if app.user.Pseudo == galerie.Auteur or is_granted('ROLE_ADMIN')%}
+        <a href="{{ path('app_photo_new')}}">Ajouter une photo</a>
+      {% endif %}
       <a href="{{ path('app_galleries')}}">Retour vers les galeries</a>
 
   {% endblock %} {# body #}

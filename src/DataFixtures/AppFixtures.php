@@ -39,8 +39,30 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
 
     private static function MembreGenerator()
     {
-        yield ["Manuia",2022,"Tahiti","manuia@localhost"];
-        yield ["Esteban",2023,"France","esteban@localhost"];
+        yield [
+            'chris@localhost',
+            'Chris',
+            'France',
+            2023
+        ];
+        yield [
+            'anna@localhost',
+            'Anna',
+            'France',
+            2023
+        ];
+        yield [
+            'manuia@localhost',
+            'Manuia',
+            'Tahiti',
+            2021
+        ];
+        yield [
+            'esteban@localhost',
+            'Esteban',
+            'France',
+            2022
+        ];
     }
 
     private static function PhotoDataGenerator()
@@ -58,7 +80,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     }
     public function load(ObjectManager $manager): void
     {
-        foreach (self::MembreGenerator() as [$pseudo, $annee, $pays, $useremail])
+        foreach (self::MembreGenerator() as [$useremail, $pseudo, $pays, $annee])
         {
             $membre = new Membre();
             if ($useremail) {

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\AlbumController;
 use App\Entity\Photo;
 use App\Entity\Gallerie;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -27,11 +28,12 @@ class PhotoCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('Titre'),
             //DateField::new('')
-            TextField::new('Auteur'),
-            TextField::new("ShutterSpeed"),
-            TextField::new("Ouverture"),
-            IntegerField::new('ISO'),
+            AssociationField::new('Auteur'),
             TextEditorField::new('description'),
+            IntegerField::new('ISO'),
+            TextField::new("Ouverture"),
+            TextField::new("ShutterSpeed"),
+            AssociationField::new("Albums"),
             AssociationField::new('gallerie')
         ];
     }

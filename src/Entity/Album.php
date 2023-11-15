@@ -97,6 +97,7 @@ class Album
     {
         if (!$this->Objets->contains($objet)) {
             $this->Objets->add($objet);
+            $objet->addAlbum($this);
         }
 
         return $this;

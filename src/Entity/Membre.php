@@ -18,7 +18,7 @@ class Membre
     #[ORM\Column(length: 255)]
     private ?string $Pseudo = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column]
     private ?string $Pays = null;
 
 

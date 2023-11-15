@@ -22,7 +22,11 @@
                 <td><a href="{{ path('membre_show', {'id': gallerie.Auteur.id}) }}">{{ gallerie.Auteur.Pseudo }}</a></td>
                 <td>
                     <a href="{{ path('galleries_show', {'id': gallerie.id}) }}">Regarder</a>
+                    {% if app.user %}
+                    {% if app.user.Pseudo == gallerie.Auteur or is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('app_galleries_edit', {'id': gallerie.id}) }}">Modifier</a>
+                    {% endif %}
+                    {%  endif %}
                 </td>
             </tr>
         {% else %}
@@ -32,9 +36,11 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if app.user %}
+    {%  if not(app.user.membre.gallerie) %}
     <a href="{{ path('app_galleries_new') }}">Nouvelle galerie</a>
-
+    {% endif %}
+    {% endif %}
 {% endblock %} {# body #}
 
 

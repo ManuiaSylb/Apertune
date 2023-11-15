@@ -30,7 +30,7 @@ class AlbumController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $album = new Album();
-
+        $album->setAuteur($this->getUser()->getMembre());
         $form = $this->createForm(Album1Type::class, $album);
         $form->handleRequest($request);
 
@@ -50,9 +50,25 @@ class AlbumController extends AbstractController
     #[Route('/{id}', name: 'app_album_show', methods: ['GET'])]
     public function show(Album $album): Response
     {
-        return $this->render('album/show.html.twig', [
-            'album' => $album,
-        ]);
+        $hasAccess = false;
+        if($this->isGranted('ROLE_ADMIN') || $album->isPublie()) {
+                $hasAccess = true;
+        }
+        else {
+        $user = $this->getUser();
+        if( $user ) {
+            $membre = $user->getMembre();
+            if ( $membre &&  ($membre == $album->getAuteur()) ) {
+                $hasAccess = true;
+            }
+        }
+    }
+    if(! $hasAccess) {
+        throw $this->createAccessDeniedException("Vous n'avez pas accès à cet album");
+    }
+    return $this->render('album/show.html.twig', [
+        'album' => $album,
+    ]);
     }
 
     #[Route('/{id}/edit', name: 'app_album_edit', methods: ['GET', 'POST'])]

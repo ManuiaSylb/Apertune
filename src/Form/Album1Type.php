@@ -15,7 +15,8 @@ class Album1Type extends AbstractType
             ->add('Description')
             ->add('Publie')
             ->add('Nom')
-            ->add('Auteur')
+            ->add('Auteur', null, [
+            'disabled'   => true,])
             ->add('Objets', null, [
                 'multiple' => true,
                 'expanded' => true

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Photo{% endblock %}
+
+{% block body %}
+    <h1>Ajouter une nouvelle photo</h1>
+
+    {{ include('photo/_form.html.twig') }}
+
+    <button onclick="history.back();">Retour</button>
+{% endblock %}

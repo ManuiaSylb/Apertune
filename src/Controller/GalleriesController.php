@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Membre;
 use App\Entity\Photo;
+use App\Entity\User;
 use App\Form\GallerieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,20 +35,30 @@ class GalleriesController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $gallerie = new Gallerie();
-        $form = $this->createForm(GallerieType::class, $gallerie);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($gallerie);
-            $entityManager->flush();
-
+        if(($this->getUser()->getMembre()->getGallerie())) {
             return $this->redirectToRoute('app_galleries', [], Response::HTTP_SEE_OTHER);
         }
+        else{
 
-        return $this->render('galleries/new.html.twig', [
-            'gallerie' => $gallerie,
-            'form' => $form,
-        ]);
+            $gallerie->setAuteur($this->getUser()->getMembre());
+            $form = $this->createForm(GallerieType::class, $gallerie);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->persist($gallerie);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_galleries', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->render('galleries/new.html.twig', [
+                'gallerie' => $gallerie,
+                'form' => $form,
+            ]);
+
+
+            }
+
     }
 
     #[Route('galleries/{id}/edit', name: 'app_galleries_edit', methods: ['GET', 'POST'])]

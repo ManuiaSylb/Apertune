@@ -24,8 +24,10 @@
                 <td><a href="{{ path('membre_show', {'id': album.Auteur.id}) }}">{{ album.Auteur.Pseudo }}</a></td>
                 <td>
                     <a href="{{ path('app_album_show', {'id': album.id}) }}">Montrer</a>
-                    {% if is_granted('ROLE_USER') %}
+                    {% if app.user %}
+                    {% if app.user.Pseudo == album.Auteur or is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('app_album_edit', {'id': album.id}) }}">Modifier</a>
+                    {%  endif %}
                     {%  endif %}
                 </td>
             </tr>
