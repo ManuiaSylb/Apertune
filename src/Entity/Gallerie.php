@@ -30,7 +30,7 @@ class Gallerie
     public function __toString()
     {
         $s = '';
-        $s .= $this->getId() .' '. $this->getNom() .' ';
+        $s .= $this->getNom();
         return $s;
     }
 

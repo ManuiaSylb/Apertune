@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @method Album|null find($id, $lockMode = null, $lockVersion = null)
  * @method Album|null findOneBy(array $criteria, array $orderBy = null)
- * @method Album[]    findAll()
+ * @method Album[]    findBy()
  * @method Album[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AlbumRepository extends ServiceEntityRepository

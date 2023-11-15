@@ -23,7 +23,9 @@
                           <li>
                               <a href="{{ path('app_album_show', {'id': album.id}) }}">{{ album.Nom }}</a>
                           </li>
+
                       {%  endfor %}
+                      <a href="{{ path('app_album_new', {'id': membre.id}) }}">Créer un album</a>
                   </td>
               </tr>
           </tbody>

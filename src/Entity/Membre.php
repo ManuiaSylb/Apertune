@@ -34,6 +34,10 @@ class Membre
     #[ORM\OneToOne(mappedBy: 'Auteur', cascade: ['persist', 'remove'])]
     private ?Gallerie $Gallerie = null;
 
+    #[ORM\OneToOne(inversedBy: 'membre', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $User = null;
+
     public function __construct()
     {
         $this->Albums = new ArrayCollection();
@@ -43,7 +47,7 @@ class Membre
     public function __toString()
     {
         $s = '';
-        $s .= $this->getId() .' '. $this->getPseudo() .' ';
+        $s .= $this->getPseudo();
         return $s;
     }
 
@@ -164,6 +168,18 @@ class Membre
         }
 
         $this->Gallerie = $Gallerie;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(User $User): static
+    {
+        $this->User = $User;
 
         return $this;
     }

@@ -11,7 +11,7 @@
                 <!-- <th>Id</th> -->
                 <th>Nom</th>
                 <th>Description</th>
-                <th>Publié</th>
+                <th>Auteur</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -21,10 +21,12 @@
                 <!-- <td>{{ album.id }}</td> -->
                 <td>{{ album.Nom }}</td>
                 <td>{{ album.Description }}</td>
-                <td>{{ album.Publie ? 'Oui' : 'Non' }}</td>
+                <td><a href="{{ path('membre_show', {'id': album.Auteur.id}) }}">{{ album.Auteur.Pseudo }}</a></td>
                 <td>
-                    <a href="{{ path('app_album_show', {'id': album.id}) }}">show</a>
-                    <a href="{{ path('app_album_edit', {'id': album.id}) }}">edit</a>
+                    <a href="{{ path('app_album_show', {'id': album.id}) }}">Montrer</a>
+                    {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('app_album_edit', {'id': album.id}) }}">Modifier</a>
+                    {%  endif %}
                 </td>
             </tr>
         {% else %}

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Album;
+use Doctrine\DBAL\Query\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -34,6 +35,7 @@ class AlbumCrudController extends AbstractCrudController
 
         return [
             IdField::new('id')->hideOnForm(),
+            TextField::new('Nom'),
             AssociationField::new('Auteur'),
             BooleanField::new('Publie')
                 ->onlyOnForms()

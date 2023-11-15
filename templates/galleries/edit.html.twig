@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'une galerie{% endblock %}
+
+{% block body %}
+    <h1>Modifier une galerie</h1>
+
+    {{ include('galleries/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+
+    <a href="{{ path('app_galleries') }}">Retour à la galerie</a>
+
+{% endblock %}

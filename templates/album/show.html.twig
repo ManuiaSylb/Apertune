@@ -5,10 +5,17 @@
 {% block body %}
     <h1>{{ album.Nom }}</h1>
 
-    <p>
+    <h4>
+        <b>Auteur</b>
+    </h4>
+    <p>{{ album.Auteur.Pseudo }}</p>
+
+
+
+    <h4>
         <b>Description</b>
-        {{ album.Description }}
-    </p>
+    </h4>
+    <p>{{ album.Description }}</p>
 
 
 
@@ -22,8 +29,8 @@
     </ul>
 
     <a href="{{ path('app_album_index') }}">Retour aux albums</a>
-
-    <a href="{{ path('app_album_edit', {'id': album.id}) }}">Modifier</a>
-
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('app_album_edit', {'id': album.id}) }}">Modifier</a>
+    {%  endif %}
     {{ include('album/_delete_form.html.twig') }}
 {% endblock %}

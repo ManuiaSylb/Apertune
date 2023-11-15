@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Membre;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class MembreController extends AbstractController
 {
@@ -22,10 +23,12 @@ class MembreController extends AbstractController
     }
 
     #[Route('/membre/{id}', name: 'membre_show', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_USER')]
     public function showMembre(Membre $membre): Response
     {
         return $this->render('membre/show.html.twig', [
             'membre' => $membre  ,
         ]);
     }
+
 }

@@ -4,14 +4,16 @@ namespace App\DataFixtures;
 
 use App\Entity\Album;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Gallerie;
 use App\Entity\Membre;
 use App\Entity\Photo;
+use App\Entity\User;
 use App\Repository\PhotoRepository;
 use phpDocumentor\Reflection\Types\Self_;
 
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements DependentFixtureInterface
 {
     private const Gallerie1 = 'Galerie de Manuia';
     private const Gallerie2 = "Galerie d'Esteban";
@@ -37,8 +39,8 @@ class AppFixtures extends Fixture
 
     private static function MembreGenerator()
     {
-        yield ["Manuia",2022,"Tahiti"];
-        yield ["Esteban",2023,"France"];
+        yield ["Manuia",2022,"Tahiti","manuia@localhost"];
+        yield ["Esteban",2023,"France","esteban@localhost"];
     }
 
     private static function PhotoDataGenerator()
@@ -48,12 +50,21 @@ class AppFixtures extends Fixture
         yield ["Nature", "Esteban","Photo reflexion","1/540","3.2",100,self::Gallerie2, [self::Album3]];
     }
 
-
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
+    }
     public function load(ObjectManager $manager): void
     {
-        foreach (self::MembreGenerator() as [$pseudo, $annee, $pays])
+        foreach (self::MembreGenerator() as [$pseudo, $annee, $pays, $useremail])
         {
             $membre = new Membre();
+            if ($useremail) {
+                $user = $manager->getRepository(User::class)->findOneByEmail($useremail);
+                $membre->setUser($user);
+            }
             $membre->setPseudo($pseudo);
             $membre->setAnnee($annee);
             $membre->setPays($pays);

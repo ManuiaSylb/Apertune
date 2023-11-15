@@ -21,7 +21,8 @@
                 <td>{{ gallerie.Nom }}</td>
                 <td><a href="{{ path('membre_show', {'id': gallerie.Auteur.id}) }}">{{ gallerie.Auteur.Pseudo }}</a></td>
                 <td>
-                    <a href="{{ path('galleries_show', {'id': gallerie.id}) }}">Montrer la galerie</a>
+                    <a href="{{ path('galleries_show', {'id': gallerie.id}) }}">Regarder</a>
+                    <a href="{{ path('app_galleries_edit', {'id': gallerie.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

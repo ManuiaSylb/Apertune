@@ -7,7 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Photo;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+
+#[Route('/Photos')]
+#[IsGranted('ROLE_USER')]
 class PhotoController extends AbstractController
 {
     /**
@@ -15,7 +19,7 @@ class PhotoController extends AbstractController
      *
      * @param Integer $id (note that the id must be an integer)
      */
-    #[Route('/Photo/{id}', name: 'Photo_show', requirements: ['id' => '\d+'])]
+    #[Route('/{id}', name: 'Photo_show', requirements: ['id' => '\d+'])]
     public function show(Photo $photo)
     {
         return $this->render('photo/show.html.twig', [
