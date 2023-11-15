@@ -75,7 +75,9 @@ class AlbumController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function edit(Request $request, Album $album, EntityManagerInterface $entityManager): Response
     {
-
+        if ( $this->getUser()->getMembre()->getPseudo()!=$album->getAuteur() && $this->getUser()->getRoles()!=['ROLE_ADMIN','ROLE_USER']){
+            return $this->redirectToRoute('app_album_index', [], Response::HTTP_SEE_OTHER);
+        }
         $form = $this->createForm(Album1Type::class, $album);
         $form->handleRequest($request);
 
@@ -113,10 +115,8 @@ class AlbumController extends AbstractController
         if(! $album->isPublie()) {
             throw $this->createAccessDeniedException("Vous n'avez pas les permissions d'accès!");
         }
+       $id=$photo->getId();
+        return $this->redirect("/photos/$id");
 
-        return $this->render('album/photo_show.html.twig', [
-            'photo' => $photo,
-            'album' => $album
-        ]);
-    }
+        }
 }

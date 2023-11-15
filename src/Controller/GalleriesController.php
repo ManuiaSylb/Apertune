@@ -65,6 +65,9 @@ class GalleriesController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function edit(Request $request, Gallerie $galerie, EntityManagerInterface $entityManager): Response
     {
+        if ( $this->getUser()->getMembre()->getPseudo()!=$galerie->getAuteur() && $this->getUser()->getRoles()!=['ROLE_ADMIN','ROLE_USER']){
+            return $this->redirectToRoute('app_galleries', [], Response::HTTP_SEE_OTHER);
+        }
         $form = $this->createForm(GallerieType::class, $galerie);
         $form->handleRequest($request);
 

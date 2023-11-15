@@ -56,7 +56,7 @@ class UserFixtures extends Fixture
             'anna',
             'France',
             2023,
-            'ROLE_ADMIN'
+            'ROLE_ADMIN','ROLE_USER'
         ];
         yield [
             'manuia@localhost',
@@ -64,7 +64,7 @@ class UserFixtures extends Fixture
             '2002',
             'Tahiti',
             2021,
-            'ROLE_ADMIN'
+            'ROLE_ADMIN','ROLE_USER'
         ];
         yield [
             'esteban@localhost',

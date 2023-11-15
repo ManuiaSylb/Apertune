@@ -29,7 +29,13 @@
           </tbody>
       </table>
 
-      <a href="{{ path('galleries_show',{'id':photo.gallerie.id}) }}">Retour vers {{ photo.gallerie.Nom }}</a>
+      {% if app.user %}
+          {% if app.user.Pseudo == photo.Auteur or is_granted('ROLE_ADMIN') %}
+              {{ include('photo/_delete_form.html.twig') }}
+          {%  endif %}
+      {%  endif %}
+
+      <button onclick="history.back()">Retour</button>
 
   {% endblock %} {# body #}
 {# ... #}
