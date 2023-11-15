@@ -1,30 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gallerie de {{ photo.Auteur }}{% endblock %}
+{% block title %}Galerie de {{ galerie.Auteur }}{% endblock %}
 {# ... #}
   {% block body %}
-      <h1>Gallerie de {{ photo.Auteur }}</h1>
+      <h1>{{ galerie.Nom }}</h1>
 
-      {% dump photo %}
 
       <table class="table">
+          <thead>
+          <tr>
+              <!-- <th>Id</th> -->
+              <th>Titre de la Photo</th>
+              <th>Actions</th>
+          </tr>
+          </thead>
           <tbody>
-          <tr>
-              <th>Id</th>
-              <td>{{ photo.id }}</td>
-          </tr>
-          <tr>
-              <th>Titre</th>
-              <td><a href="{{ path('Photo_show',{'id':photo.id}) }}">{{ photo.Titre }}</a></td>
-          </tr>
-          <tr>
-              <th>Description</th>
-              <td>{{ photo.Description }}</td>
-          </tr>
+          {% for photo in galerie.Photo %}
+              <tr>
+                  <!-- <td>{{ photo.id }}</td> -->
+                  <td>{{ photo.Titre }}</td>
+                  <td>
+                      <a href="{{ path('Photo_show', {'id': photo.id}) }}">Montrer la photo</a>
+                  </td>
+              </tr>
+          {% else %}
+              <tr>
+                  <td colspan="5">Aucune photo trouvée</td>
+              </tr>
+          {% endfor %}
           </tbody>
       </table>
 
-      <a href="{{ path('app_galleries')}}">Retour vers les galleries</a>
+      <a href="{{ path('app_galleries')}}">Retour vers les galeries</a>
 
   {% endblock %} {# body #}
 {# ... #}

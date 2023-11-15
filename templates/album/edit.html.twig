@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'album{% endblock %}
+
+{% block body %}
+    <h1>Modifier un album</h1>
+
+    {{ include('album/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+
+    <a href="{{ path('app_album_index') }}">Retour aux albums</a>
+
+    {{ include('album/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Albums{% endblock %}
+
+{% block body %}
+    <h1>Liste des albums</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <!-- <th>Id</th> -->
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Publié</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for album in albums %}
+            <tr>
+                <!-- <td>{{ album.id }}</td> -->
+                <td>{{ album.Nom }}</td>
+                <td>{{ album.Description }}</td>
+                <td>{{ album.Publie ? 'Oui' : 'Non' }}</td>
+                <td>
+                    <a href="{{ path('app_album_show', {'id': album.id}) }}">show</a>
+                    <a href="{{ path('app_album_edit', {'id': album.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun album trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_album_new') }}">Nouvel album</a>
+{% endblock %}

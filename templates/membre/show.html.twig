@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ membre.Pseudo }}{% endblock %}
+{# ... #}
+  {% block body %}
+      <h1>{{ membre.Pseudo }}</h1>
+
+
+      <table class="table">
+          <thead>
+          <tr>
+              <th>Pseudo</th>
+              <th>Pays</th>
+              <th>Albums</th>
+          </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>{{ membre.Pseudo }}</td>
+                  <td>{{ membre.Pays }}</td>
+                  <td>
+                      {% for album in membre.Albums %}
+                          <li>
+                              <a href="{{ path('app_album_show', {'id': album.id}) }}">{{ album.Nom }}</a>
+                          </li>
+                      {%  endfor %}
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+
+      <a href="{{ path('app_galleries')}}">Retour vers les galeries</a>
+
+  {% endblock %} {# body #}
+{# ... #}
+
+

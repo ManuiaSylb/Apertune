@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PhotoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,8 +19,6 @@ class Photo
     #[ORM\Column(length: 255)]
     private ?string $Titre = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Auteur = null;
 
     #[ORM\ManyToOne(inversedBy: 'Photo')]
     private ?Gallerie $gallerie = null;
@@ -34,6 +34,18 @@ class Photo
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $ShutterSpeed = null;
+
+    #[ORM\ManyToMany(targetEntity: Album::class, mappedBy: 'Objets')]
+    private Collection $Albums;
+
+    #[ORM\ManyToOne(inversedBy: 'Photos')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Membre $Auteur = null;
+
+    public function __construct()
+    {
+        $this->Albums = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -60,17 +72,7 @@ class Photo
         return $this;
     }
 
-    public function getAuteur(): ?string
-    {
-        return $this->Auteur;
-    }
 
-    public function setAuteur(string $Auteur): static
-    {
-        $this->Auteur = $Auteur;
-
-        return $this;
-    }
 
     public function getGallerie(): ?Gallerie
     {
@@ -128,6 +130,45 @@ class Photo
     public function setShutterSpeed(?string $ShutterSpeed): static
     {
         $this->ShutterSpeed = $ShutterSpeed;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Album>
+     */
+    public function getAlbums(): Collection
+    {
+        return $this->Albums;
+    }
+
+    public function addAlbum(Album $album): static
+    {
+        if (!$this->Albums->contains($album)) {
+            $this->Albums->add($album);
+            $album->addObjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlbum(Album $album): static
+    {
+        if ($this->Albums->removeElement($album)) {
+            $album->removeObjet($this);
+        }
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Membre
+    {
+        return $this->Auteur;
+    }
+
+    public function setAuteur(?Membre $Auteur): static
+    {
+        $this->Auteur = $Auteur;
 
         return $this;
     }

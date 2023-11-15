@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Album;
 use App\Entity\Gallerie;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -47,5 +48,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Galleries', 'fa-solid fa-images', Gallerie::class);
         yield MenuItem::linkToCrud('Photos', 'fa-regular fa-image', Photo::class);
+        yield MenuItem::linkToCrud('Albums', 'fa-regular fa-image', Album::class);
     }
 }

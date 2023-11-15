@@ -1,0 +1,13 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        Galeries:
+          label: 'Galeries'
+          route: 'app_galleries'
+        Albums:
+          label: 'Albums'
+          route: 'app_album_index'
+        Membres :
+          label : 'Membres'
+          route : 'app_membre'

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Membres{% endblock %}
+
+{% block body %}
+    <h1>Membres</h1>
+
+    {% for membre in membres %}
+    <li>
+        <a href="{{ path('membre_show', {'id': membre.id}) }}">{{ membre.Pseudo }}</a>
+    </li>
+    {%  endfor %}
+
+{% endblock %} {# body #}
+
+

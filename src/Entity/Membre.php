@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MembreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MembreRepository::class)]
@@ -19,11 +21,32 @@ class Membre
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Pays = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Gallerie $Gallerie = null;
 
     #[ORM\Column]
     private ?int $Annee = null;
+
+    #[ORM\OneToMany(mappedBy: 'Auteur', targetEntity: Album::class)]
+    private Collection $Albums;
+
+    #[ORM\OneToMany(mappedBy: 'Auteur', targetEntity: Photo::class)]
+    private Collection $Photos;
+
+    #[ORM\OneToOne(mappedBy: 'Auteur', cascade: ['persist', 'remove'])]
+    private ?Gallerie $Gallerie = null;
+
+    public function __construct()
+    {
+        $this->Albums = new ArrayCollection();
+        $this->Photos = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        $s = '';
+        $s .= $this->getId() .' '. $this->getPseudo() .' ';
+        return $s;
+    }
+
 
     public function getId(): ?int
     {
@@ -54,17 +77,7 @@ class Membre
         return $this;
     }
 
-    public function getGallerie(): ?Gallerie
-    {
-        return $this->Gallerie;
-    }
 
-    public function setGallerie(?Gallerie $Gallerie): static
-    {
-        $this->Gallerie = $Gallerie;
-
-        return $this;
-    }
 
     public function getAnnee(): ?int
     {
@@ -74,6 +87,83 @@ class Membre
     public function setAnnee(int $Annee): static
     {
         $this->Annee = $Annee;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Album>
+     */
+    public function getAlbums(): Collection
+    {
+        return $this->Albums;
+    }
+
+    public function addAlbum(Album $album): static
+    {
+        if (!$this->Albums->contains($album)) {
+            $this->Albums->add($album);
+            $album->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlbum(Album $album): static
+    {
+        if ($this->Albums->removeElement($album)) {
+            // set the owning side to null (unless already changed)
+            if ($album->getAuteur() === $this) {
+                $album->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Photo>
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->Photos;
+    }
+
+    public function addPhoto(Photo $photo): static
+    {
+        if (!$this->Photos->contains($photo)) {
+            $this->Photos->add($photo);
+            $photo->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): static
+    {
+        if ($this->Photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getAuteur() === $this) {
+                $photo->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getGallerie(): ?Gallerie
+    {
+        return $this->Gallerie;
+    }
+
+    public function setGallerie(Gallerie $Gallerie): static
+    {
+        // set the owning side of the relation if necessary
+        if ($Gallerie->getAuteur() !== $this) {
+            $Gallerie->setAuteur($this);
+        }
+
+        $this->Gallerie = $Gallerie;
 
         return $this;
     }

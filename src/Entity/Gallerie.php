@@ -15,14 +15,17 @@ class Gallerie
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Auteur = null;
+
 
     #[ORM\OneToMany(mappedBy: 'gallerie', targetEntity: Photo::class)]
     private Collection $Photo;
 
     #[ORM\Column(length: 255)]
     private ?string $Nom = null;
+
+    #[ORM\OneToOne(inversedBy: 'Gallerie', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Membre $Auteur = null;
 
     public function __toString()
     {
@@ -42,17 +45,6 @@ class Gallerie
         return $this->id;
     }
 
-    public function getAuteur(): ?string
-    {
-        return $this->Auteur;
-    }
-
-    public function setAuteur(string $Auteur): static
-    {
-        $this->Auteur = $Auteur;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Photo>
@@ -92,6 +84,18 @@ class Gallerie
     public function setNom(string $Nom): static
     {
         $this->Nom = $Nom;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Membre
+    {
+        return $this->Auteur;
+    }
+
+    public function setAuteur(Membre $Auteur): static
+    {
+        $this->Auteur = $Auteur;
 
         return $this;
     }

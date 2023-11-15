@@ -1,15 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Galleries{% endblock %}
+{% block title %}Galeries{% endblock %}
 
 {% block body %}
-    <h1>Liste des gallerie</h1>
+    <h1>Liste des galeries</h1>
 
-    <ul>
+    <table class="table">
+        <thead>
+        <tr>
+            <!-- <th>Id</th> -->
+            <th>Nom</th>
+            <th>Auteur</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for gallerie in galleries %}
-            <li><a href="{{ path('galleries_show',{'id':gallerie.id}) }}">Gallerie de {{ gallerie.Auteur }}</a> </li>
-        {% endfor %} {# galleries #}
-    </ul>
+            <tr>
+                <!-- <td>{{ gallerie.id }}</td> -->
+                <td>{{ gallerie.Nom }}</td>
+                <td><a href="{{ path('membre_show', {'id': gallerie.Auteur.id}) }}">{{ gallerie.Auteur.Pseudo }}</a></td>
+                <td>
+                    <a href="{{ path('galleries_show', {'id': gallerie.id}) }}">Montrer la galerie</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune galerie trouvée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_galleries_new') }}">Nouvelle galerie</a>
 
 {% endblock %} {# body #}
 

@@ -12,7 +12,7 @@
           <tbody>
           <tr>
               <th>Description</th>
-              <td>{{ photo.Description }}</td>
+              <td>{{ photo.id }}</td>
           </tr>
           <tr>
               <th>ShutterSpeed</th>
@@ -29,7 +29,7 @@
           </tbody>
       </table>
 
-      <a href="{{ path('galleries_show',{'id':photo.gallerie.id}) }}">Retour vers {{ photo.gallerie.Nom }}</a>
+      <a href="{{ path('app_album_show', { 'id': album.id}) }}">Retour à l'album</a>
 
   {% endblock %} {# body #}
 {# ... #}
